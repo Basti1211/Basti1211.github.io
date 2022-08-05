@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+
+    <title>Preprocessing Checklist</title>
+    <link type="text/css" href="style.css" rel="stylesheet">
+
+
+</head>
+<body style="background-color:white;">
+
+
+    <div id="wrapper">
+        <div id="navbar">
+            <a href="#mainCaption">Introduction</a>
+            <a href="#topicNorm">Normalization</a>
+            <a href="#topicClean">Cleaning</a>
+            <a href="#topicRed">Reduction</a>
+            <a href="#topicTransform">Transformation</a>
+            <a href="#binary">Segmentation</a>
+        </div>
+    </div>
+
+
+
+
+    <h1 class='mainCaption' id="mainCaption">Preprocessing Checklist for Machine Learning Algorithms</h1>
+    <h2 class='mainCaption'>A summary of preprocessing methods to improve the quality of your machine learning application. </h2>
+    <figure class="pipeline">
+        <img src="pipeline.png"
+             alt="Knowledge Discovery in Databases">
+        <figcaption>Knowledge Discovery in Databases: A pipeline showing how knowledge is generated out of data.</figcaption>
+    </figure>
+    <div class="paragraph" id="intro">
+        <p>If you have spent some time exploring machine learning algorithms chances are high that you have used myriad preprocessing methods. Motivated by the Gargbage in, Garbage out principle, a ton of research and possibilites exist to improve the quality of data before applying a machine learning algorithm. However, choosing among the infinite amount of preprocessing methods is no trivial task and can often be confusing. The essential aspects of preprocessing accompanied by some examples are summarized in the following.   </p>
+        <p>
+            As we can see in the famous Knowledge Discovery in Databases Pipeline preprocessing happens before we are applying further algorithms to generate knowledge out of our data. Preprocessing comprises <br> <br>
+            - Normalization: normalize or standardize your data <br><br>
+            - Data Cleaning: detect outliers, delete duplicate data, remove/replace missing values <br> <br>
+            - Data Reduction: remove either some of your data points or dimensions <br><br>
+            - Transformation: change the format of your data to a format which is understood by machine learning algorithms <br><br>
+            - Segmentation: create meaningful blocks out of your data points <br><br>
+            The following sections are exploring those concepts together with some examples.
+
+        </p>
+    </div>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+    <h1 class="topicCaption" id="topicNorm">Normalization</h1>
+    <div class="paragraph">
+        <p>
+            Normalization refers to changing the scale of your data ponts. This can be motivated in various ways: For example, imagine that you want to do a clustering task with the help of the k-means algorithm. If you have two dimension with different range values, e.g. one from 0-1 and one form 0-100, chances are high that our clustering task will only be performed on the dimension with a range scale from 0-100.
+            This example transfers to almost all machine learning algorithms. Thus you should always normalize or standardize your data.
+        </p>
+
+        <p>
+            There is some confusion about the terminology of normalization and standarization. Normalization means that you transform your data to one predefined scale. On the contrary Standardization rescales the data to a mean of 0 and a standard deviation of 1. The following figure shows the difference.
+        </p>
+        <fieldset>
+            <legend>Select one method:</legend>
+            <div>
+                <input type="radio" id="original" name="normal" value="0"
+                       checked>
+                <label for="original">Original Data</label>
+            </div>
+            <div>
+                <input type="radio" id="normalize" name="normal" value="1">
+                <label for="normalize">Normalization</label>
+            </div>
+            <div>
+                <input type="radio" id="standardize" name="normal" value="2">
+                <label for="standardize">Standardization</label>
+            </div>
+        </fieldset>
+        <svg class="svg1">
+            <line x1="0" y1="200" x2="600" y2="200" style="stroke:rgb(0 0 0);stroke-width:3" />
+            <line x1="300" y1="220" x2="300" y2="180" style="stroke:rgb(0 0 0);stroke-width:4" />
+            <line x1="200" y1="220" x2="200" y2="180" style="stroke:rgb(0 0 0);stroke-width:4" />
+            <line x1="400" y1="220" x2="400" y2="180" style="stroke:rgb(0 0 0);stroke-width:4" />
+            <circle id="circle0" cy="200" cx="20" r="10" style="fill:rgb(255 0 0);" />
+            <circle id="circle1" cy="200" cx="100" r="10" style="fill: rgb(255 0 0);" />
+            <circle id="circle2" cy="200" cx="170" r="10" style="fill: rgb(255 0 0);" />
+            <circle id="circle3" cy="200" cx="200" r="10" style="fill: rgb(255 0 0);" />
+            <circle id="circle4" cy="200" cx="340" r="10" style="fill: rgb(255 0 0);" />
+            <circle id="circle5" cy="200" cx="400" r="10" style="fill: rgb(255 0 0);" />
+            <circle id="circle6" cy="200" cx="480" r="10" style="fill: rgb(255 0 0);" />
+            <text x="195" y="175" class="txt">-1</text>
+            <text x="295" y="175" class="txt">0</text>
+            <text x="395" y="175" class="txt">1</text>
+
+        </svg>
+        <p>
+            If one should apply normalization or standardization depends on the data and the algorithm one wants to use. Note that Normalization is sensitive to outliers - thus, one has to remove outliers before applying normalization. If you dont know which procedure to use to scale your data, use both and show which methods produces better results.
+        </p>
+    </div>
+
+    <h1 class="topicCaption" id="topicClean">Data Cleaning</h1>
+    <div class="paragraph">
+        <p>
+            Data Cleaning usually consists of three different tasks: <br> <br>
+            - Outlier Detection: remove data points that are substantially different to the rest of the data <br> <br>
+            - Data Deduplication: remove data points which appear twice in the data set <br> <br>
+            - Missing Values: handle data points which have missing values for one or more feature <br> <br>
+
+            While data deduplication is an important task for preprocessing, we do not want to focus on that problem here because there is no better possibility than to scan the whole database for multiple appearances of data points. Thus we first want to focus on Outlier Detection.
+        </p>
+        <p>
+            We can choose among a myriad approaches for outlier detection: There are statistical-based methods, distance-based methods and model-based methods. The amount of research should show the importance of Outlier Detection: Outliers distort the results of our machine learning algorithms because they make it harder for the algorithms to detect regularities and influence statistical measurements. For example, look at the following dataset: To the human eye, it is easy to detect that there are two clusters. But what do you think could happen if we choose to cluster our data with the help of the k-means algorithm.
+        </p>
+        <fieldset>
+            <legend>Select one method:</legend>
+            <div>
+                <input type="radio" id="kmeansOriginal" name="kmeans" value="0"
+                       checked>
+                <label for="kmeansOriginal">No clustering</label>
+            </div>
+            <div>
+                <input type="radio" id="kmeansWith" name="kmeans" value="1">
+                <label for="kmeansWith">k-means with outlier</label>
+            </div>
+            <div>
+                <input type="radio" id="kmeansWithout" name="kmeans" value="2">
+                <label for="kmeansWithout">k-means without outlier</label>
+            </div>
+        </fieldset>
+        <svg class="svg2">
+            <svg>
+                <circle id="circ1" cy="380" cx="80" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ2" cy="380" cx="90" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ3" cy="360" cx="75" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ4" cy="360" cx="65" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ5" cy="370" cx="80" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ6" cy="375" cx="87" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ7" cy="390" cx="90" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ8" cy="386" cx="79" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ9" cy="366" cx="76" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ10" cy="387" cx="135" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ11" cy="390" cx="144" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ12" cy="380" cx="137" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ13" cy="387" cx="143" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ14" cy="397" cx="136" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ15" cy="389" cx="132" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ16" cy="393" cx="146" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ17" cy="376" cx="136" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ18" cy="397" cx="138" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ19" cy="390" cx="135" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ20" cy="380" cx="140" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="circ21" cy="200" cx="480" r="4" style="fill: rgb(0 0 0);" />
+
+            </svg>
+        </svg>
+
+        <p>
+            Not all machine learning algorithms are sensitive to outliers. Can you guess which of the following algorithms are robust to outliers?
+        </p>
+        <div class="form-group">
+            k-Medians is ...
+            <input id="kMed1" name='robust' type='checkbox' onchange="kMed(true)">
+            <label for="kMed1">Robust</label>
+            <input id="kMed2" name='robust' type='checkbox' onchange="kMed(false)">
+            <label for="kMed2">Sensitive</label>
+        </div>
+        <p id="sol1">
+
+        </p>
+        <div class="form-group">
+            Linear Regression is ...
+            <input id="regr1" name='robust' type='checkbox' onchange="lReg(false)">
+            <label for="regr1">Robust</label>
+            <input id="regr2" name='robust' type='checkbox' onchange="lReg(true)">
+            <label for="regr2">Sensitive</label>
+        </div>
+        <p id="sol2">
+
+        </p>
+        <div class="form-group">
+            Kernel Regression is ...
+            <input id="gpr1" name='robust' type='checkbox' onchange="gpr(true)">
+            <label for="gpr1">Robust</label>
+            <input id="gpr2" name='robust' type='checkbox' onchange="gpr(true)">
+            <label for="gpr2">Sensitive</label>
+        </div>
+        <p id="sol3">
+
+        </p>
+        <div class="form-group">
+            Principal Component Analysis is ...
+            <input id="pca1" name='robust' type='checkbox' onchange="pca(false)">
+            <label for="pca1">Robust</label>
+            <input id="pca2" name='robust' type='checkbox' onchange="pca(true)">
+            <label for="pca2">Sensitive</label>
+        </div>
+        <p id="sol4">
+
+        </p>
+        <div class="form-group">
+            Decision Tree is ...
+            <input id="dc1" name='robust' type='checkbox' onchange="dc(true)">
+            <label for="dc1">Robust</label>
+            <input id="dc2" name='robust' type='checkbox' onchange="dc(false)">
+            <label for="dc2">Sensitive</label>
+        </div>
+        <p id="sol5">
+
+        </p>
+        <p>
+            <br> <br>
+            Next, we want to quickly look at how we can handle missing values. In general, we have following opportunities for that:
+        </p>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Advantages</th>
+                <th>Disadvantages</th>
+            </tr>
+            <tr>
+                <td>Replace all missing values with a global constant</td>
+                <td>Easy, Efficient</td>
+                <td>Algorithm must know how to deal with global constant</td>
+
+            </tr>
+            <tr>
+                <td>Remove data point</td>
+                <td>Easy, Efficient</td>
+                <td>Data point is lost</td>
+            </tr>
+            <tr>
+                <td>Enter value manually</td>
+                <td>Effective for small datasets</td>
+                <td>Value must be known, time consuming</td>
+            </tr>
+            <tr>
+                <td>Use attribute mean</td>
+                <td>Efficient, Easy</td>
+                <td>Not most probable approximation</td>
+            </tr>
+            <tr>
+                <td>Use most probable</td>
+                <td>Effective</td>
+                <td>Hard to implement, time consuming</td>
+            </tr>
+
+        </table>
+    </div>
+
+    <h1 class="topicCaption" id="topicRed">Data Reduction</h1>
+    <div class="paragraph">
+        <p>Data reduction is necessary for some algorithms to ease the computational cost. Most machine learning algorithms deal well with huge amounts of data because that makes it easy to find patterns. However, for some methods such as gradient descent, we can save some computational cost. Instead of looking at all data points, we only look at a sample of them. This procedure is then called stochastic gradient descent, which is computationally much cheaper and produces most often good results. But we can not only reduce the number of data points, but also the number of features. We then have to decide which feature to keep and which to disregard.</p>
+        <p>First we want to focus on data point reduction. Probably the easiest way to reduce the number of data points is to apply sampling strategies. Simple Random Sampling randomly chooses which data points we want to keep. This method is not biased but can exclude whole groups of data points, which then do not appear anymore in our dataset. We can overcome that problem by applying Systematic Random Sampling. There, we sort the data according to some feature and then select every k-th element. Thus we can be sure to include the whole range of values for at least one feature. Another method is called Stratified Random Sampling where we define homogenous groups and then we are sampling in those groups. However, it often happens that the final data set is then too heavily influenced by small groups. The last method is called Cluster Random Sampling. There we are assuming that there is little variance between the clusters, but huge variance within one cluster. Thus, we sample just in one cluster. The difference between Simple Random Sampling, Stratified Random Sampling and Cluster Random Sampling is shown in the following plot. In each case we want to sample 8 points.   </p>
+
+
+        <fieldset>
+            <legend>Select one method:</legend>
+            <div>
+                <input type="radio" id="simple" name="sampling" value="0"
+                       checked>
+                <label for="simple">Simple Random Sampling</label>
+            </div>
+            <div>
+                <input type="radio" id="stratified" name="sampling" value="1">
+                <label for="stratified">Stratified Random Sampling</label>
+            </div>
+            <div>
+                <input type="radio" id="cluster" name="sampling" value="2">
+                <label for="cluster">Cluster Random Sampling</label>
+            </div>
+        </fieldset>
+
+        <svg class="svg3">
+            <svg>
+                <circle id="cir1" cy="60" cx="25" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir2" cy="80" cx="50" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir3" cy="60" cx="45" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir4" cy="60" cx="30" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir5" cy="70" cx="60" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir6" cy="75" cx="63" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir7" cy="90" cx="53" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir8" cy="86" cx="35" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir9" cy="66" cx="44" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir10" cy="60" cx="40" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir11" cy="460" cx="50" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir12" cy="480" cx="45" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir13" cy="487" cx="30" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir14" cy="497" cx="60" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir15" cy="489" cx="63" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir16" cy="493" cx="53" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir17" cy="476" cx="35" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir18" cy="497" cx="44" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir19" cy="460" cx="44" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir20" cy="480" cx="63" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir21" cy="490" cx="430" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir22" cy="480" cx="460" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir23" cy="487" cx="445" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir24" cy="497" cx="450" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir25" cy="489" cx="460" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir26" cy="493" cx="468" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir27" cy="476" cx="443" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir28" cy="497" cx="435" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir29" cy="490" cx="444" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir30" cy="490" cx="440" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir31" cy="65" cx="450" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir32" cy="68" cx="445" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir33" cy="76" cx="430" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir34" cy="40" cx="460" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir35" cy="45" cx="463" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir36" cy="55" cx="453" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir37" cy="70" cx="435" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir38" cy="76" cx="444" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir39" cy="55" cx="444" r="4" style="fill: rgb(0 0 0);" />
+                <circle id="cir40" cy="42" cx="463" r="4" style="fill: rgb(0 0 0);" />
+
+            </svg>
+        </svg>
+
+        <p>Next we will focus on dimensionality reduction. Many distance-based machine learning algorithms suffer from the Curse of Dimensionality. Furthermore we do not want to have strongly correlated features. For example, imagine that we have two features in a k-means algorithm that have the exxact same values. We then do not only have a higher computational cost, but those features (which should only be one feature) are weighted twice in the distance calculation. Thus we will get worse results. However dimensionality reduction is no trivial task especially if we want to do non-linear dimensionality reduction. Non-linear dimensionality reduction has the advantage that it can change non-linear separable data to linear separable data where we can use well-known and fast linear algorithms. In the following, we want to retrace one non-linear dimensionality reduction in detail.</p>
+
+
+
+        <p>We will look at a famous data set called Swiss Roll. The data looks like that</p>
+
+    </div>
+    <figure class="swissRoll">
+        <img src="original.png"
+             alt="Swiss Roll data set with 1000 points">
+        <figcaption>Swiss Roll data set with 1000 points. The colors only serve to better distinguish between the data and do not encode any additional information.</figcaption>
+    </figure>
+    <div class="paragraph">
+        <p>
+            Our goal is now to unroll the data. We will apply three steps:
+            <br> <br>
+            1. We build a k-nearest-neighbour graph <br> <br>
+            2. We calculate the distance matrix with the help of Dijkstras Algorithm <br> <br>
+            3. We apply multidimensional scaling to our distance matrix  <br> <br>
+
+            The k-nearest-neighbour graph can be calculated easily. For each data point we scan the database. calculate the euclidean distance and then save the k-th nearest neighbour. The nodes of our graph will be the nodes and there will be an edge between two nodes if they are k-nearest neighbours. However, you may notice a drawback here. It can be possible that the graph is not connected. If that is the case our k was too low.
+        </p>
+        <p>
+            Next we will apply Dijkstras Algorithm to calculate the shortest path distances for each node in the graph. That means we calculate a distance matrix \( E(x_1,x_2,...x_N) =  \sqrt{\sum_{m,n}  d_{mn} - ||x_m - x_n|| } \) between all points. Note that we not simply calculate the euclidean distance as we have done for the k-nearest algorithm, but the path distances in the graph. The drawback of this method is that Dijkstra is in n log(n) meaning that we can not use this algorithm for too large data sets.
+
+        </p>
+        <p>
+            This distance matrix will now be used for multidimensional scaling. This machine learning algorithm tries to minimize the following loss: \( E(x_1,x_2,...x_n) =  \sqrt{\sum_{a,b}^n euclid_d(x_{a},x_{b}) - dijkstra(x_{a},x_{b})} \) which seems confusing in the beginning. So let's make sure we understand the notation. The input to our loss are the data points \( x_1,x_2,...x_n \). For each pair of data points we then try to preserve the distance calculated by Dijkstra in our nearest neighbour graph and the euclidean distance \( euclid_d(x_{a},x_{b}) \) in a lower dimensional space with (\ d \) dimensions. In our example for the swiss roll, our original data set is 3-dimensional and we want to unroll the data to a 2-dimensional representation. Intuitively, the loss tries that nearest neighbours in the original data set are still nearest neighbours in the low dimensional space. If we apply this loss with appropriate parameters, we get the following representaiton:
+        </p>
+    </div>
+    <figure class="swissRoll">
+        <img src="transformed.png"
+             alt="Transformed Swiss Roll data set with 1000 points">
+        <figcaption>Transformed Swiss Roll data set with 1000 points. The colors only serve to better distinguish between the data and do not encode any additional information.</figcaption>
+    </figure>
+    <div class="paragraph">
+        <p>
+            In this case we have set k to 6, that means each data point is connected to 6 nearest neighbour in our graph. Unfortunately, we dont know that number in beforehand. This problem becomes even worse if we realize that k should also not be chosen too high. Otherwise the distances calculated by Dijkstra approximate the original euclidean distances which leads to a collapse of our loss function in the multidimensional scaling. An example what happens if k is choosen too high is shown in the following.
+        </p>
+    </div>
+    <figure class="swissRoll">
+        <img src="negative.png"
+             alt="Transformed Swiss Roll data set with 1000 points">
+        <figcaption>A negative example what can go wrong when applying Isomap. k is set too high which leads to a bad behaviour of our loss function.</figcaption>
+    </figure>
+
+    <div class="paragraph">
+        <p>
+            An explanation for that can be found easily. What happened is that some of the yellow nodes were direct neighbours with some blue points. Thus the distances calculated by Dijkstra between the yellow and the blue points is low. The multidimensional scaling tries to preserve this embedding. Thats why the yellow points are still close to the blue points and we have failed to fully unroll the data set.
+        </p>
+    </div>
+    <h1 class="topicCaption" id="topicTransform">Transformation</h1>
+    <div class="paragraph">
+        <p>
+        </p>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
