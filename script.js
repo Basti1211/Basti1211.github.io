@@ -178,7 +178,7 @@ function changeSampling(type) {
 function kMed(bool1) {
     document.getElementById("kMed1").disabled = true;
     document.getElementById("kMed2").disabled = true;
-    document.getElementById("sol1").innerHTML = "k-Medians is robust to outliers. On the contrary to the k-Means algorithm, the centroids of the k-Medians algorithm are the median values and not the mean."
+    document.getElementById("sol1").innerHTML = "k-Medians is robust to outliers. Contrary to the k-Means algorithm, the centroids of the k-Medians algorithm are the median values and not the mean."
     if (bool1 == true) {
         document.getElementById("sol1").style.color = "green";
     }
@@ -190,7 +190,7 @@ function kMed(bool1) {
 function lReg(bool1) {
     document.getElementById("regr1").disabled = true;
     document.getElementById("regr2").disabled = true;
-    document.getElementById("sol2").innerHTML = "Linear regression is sensitive to outliers. The easiest way to think about that is if we try to model the data with a constant function. This constant function will take the mean value of the data which can be heavily distorted by outliers."
+    document.getElementById("sol2").innerHTML = "Linear regression is sensitive to outliers. The easiest way to think about that is if we try to model the data with a constant function. This constant function will take the data's mean value, which outliers can heavily distort."
     if (bool1 == true) {
         document.getElementById("sol2").style.color = "green";
     }
@@ -202,7 +202,7 @@ function lReg(bool1) {
 function gpr(bool1) {
     document.getElementById("gpr1").disabled = true;
     document.getElementById("gpr2").disabled = true;
-    document.getElementById("sol3").innerHTML = "We can not give an unique answer here. If we take for example a Gaussian Kernel with a small length scale, the outliers will probably not influence our model too much. If we take a constant kernel, we get the same answer as for the Linear Regression."
+    document.getElementById("sol3").innerHTML = "We can not give a unique answer here. If we take, for example, a Gaussian Kernel with a small length scale, the outliers will probably not influence our model too much. If we take a constant kernel, we get the same answer as for the Linear Regression."
     if (bool1 == true) {
         document.getElementById("sol3").style.color = "green";
     }
@@ -214,7 +214,7 @@ function gpr(bool1) {
 function pca(bool1) {
     document.getElementById("pca1").disabled = true;
     document.getElementById("pca2").disabled = true;
-    document.getElementById("sol4").innerHTML = "PCA uses variance and mean to calculate the principal components. Those are influenced by outliers"
+    document.getElementById("sol4").innerHTML = "PCA uses variance and mean to calculate the principal components. Outliers influence those."
     if (bool1 == true) {
         document.getElementById("sol4").style.color = "green";
     }
@@ -235,7 +235,77 @@ function dc(bool1) {
     }
 }
 
+function quizNorm(bool1) {
+    document.getElementById("quizNorm1").disabled = true;
+    document.getElementById("quizNorm2").disabled = true;
+    document.getElementById("sol6").innerHTML = "Normalization is sensitive to outliers. Imagine that we have one huge value - the rest of the data will then be compressed close to zero on a tiny scale."
+    if (bool1 == true) {
+        document.getElementById("sol6").style.color = "green";
+    }
+    else {
+        document.getElementById("sol6").style.color = "red";
+    }
+}
 
+function quizStand(bool1) {
+    document.getElementById("quizStand1").disabled = true;
+    document.getElementById("quizStand2").disabled = true;
+    document.getElementById("sol7").innerHTML = "Standardization changes the mean of the data to zero and produces a unit standard deviation. We can not choose a predefined scale for our data points."
+    if (bool1 == true) {
+        document.getElementById("sol7").style.color = "green";
+    }
+    else {
+        document.getElementById("sol7").style.color = "red";
+    }
+}
+
+
+function quizOutl(bool1) {
+    document.getElementById("quizOutl1").disabled = true;
+    document.getElementById("quizOutl2").disabled = true;
+    document.getElementById("sol8").innerHTML = "Not all machine learning algorithms are sensitive to outliers. For example, k-medoids is robust to outliers. "
+    if (bool1 == true) {
+        document.getElementById("sol8").style.color = "green";
+    }
+    else {
+        document.getElementById("sol8").style.color = "red";
+    }
+}
+
+function quizMean(bool1) {
+    document.getElementById("quizMean1").disabled = true;
+    document.getElementById("quizMean2").disabled = true;
+    document.getElementById("sol9").innerHTML = "Using the mean is not the most probable approach. For example, we can use regression to get a better prediction."
+    if (bool1 == true) {
+        document.getElementById("sol9").style.color = "green";
+    }
+    else {
+        document.getElementById("sol9").style.color = "red";
+    }
+}
+
+function quizSampling(bool1) {
+    document.getElementById("quizSampling1").disabled = true;
+    document.getElementById("quizSampling2").disabled = true;
+    document.getElementById("sol10").innerHTML = "Cluster random sampling should only be applied if we have nearly no variance between the clusters, but within one cluster."
+    if (bool1 == true) {
+        document.getElementById("sol10").style.color = "green";
+    }
+    else {
+        document.getElementById("sol10").style.color = "red";
+    }
+}
+function quizAugmen(bool1) {
+    document.getElementById("quizAugmen1").disabled = true;
+    document.getElementById("quizAugmen2").disabled = true;
+    document.getElementById("sol11").innerHTML = "Data Augmentation is often used in computer vision and describes the task of generating new input data."
+    if (bool1 == true) {
+        document.getElementById("sol11").style.color = "green";
+    }
+    else {
+        document.getElementById("sol11").style.color = "red";
+    }
+}
 
 var radios = document.getElementsByName("normal");
 

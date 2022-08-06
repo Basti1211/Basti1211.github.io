@@ -18,7 +18,7 @@
             <a href="#topicClean">Cleaning</a>
             <a href="#topicRed">Reduction</a>
             <a href="#topicTransform">Transformation</a>
-            <a href="#binary">Segmentation</a>
+            <a href="#topicSummary">Summary</a>
         </div>
     </div>
 
@@ -26,22 +26,21 @@
 
 
     <h1 class='mainCaption' id="mainCaption">Preprocessing Checklist for Machine Learning Algorithms</h1>
-    <h2 class='mainCaption'>A summary of preprocessing methods to improve the quality of your machine learning application. </h2>
+    <h2 class='mainCaption'>A summary of preprocessing methods to improve the quality of machine learning applications. </h2>
     <figure class="pipeline">
         <img src="pipeline.png"
              alt="Knowledge Discovery in Databases">
-        <figcaption>Knowledge Discovery in Databases: A pipeline showing how knowledge is generated out of data.</figcaption>
+        <figcaption>Figure reprinted from [1]. Knowledge Discovery in Databases: A pipeline showing how knowledge is generated out of data.</figcaption>
     </figure>
     <div class="paragraph" id="intro">
-        <p>If you have spent some time exploring machine learning algorithms chances are high that you have used myriad preprocessing methods. Motivated by the Gargbage in, Garbage out principle, a ton of research and possibilites exist to improve the quality of data before applying a machine learning algorithm. However, choosing among the infinite amount of preprocessing methods is no trivial task and can often be confusing. The essential aspects of preprocessing accompanied by some examples are summarized in the following.   </p>
+        <p>Motivated by the Garbage in, Garbage out principle, considerable research and possibilities exist to improve data quality before applying a machine learning algorithm. If you have spent some time exploring machine learning algorithms, chances are high that you have used numerous preprocessing methods. However, choosing among the infinite amount of preprocessing methods is no trivial task and can often be confusing. The essential aspects of preprocessing, accompanied by some examples, are summarized in the following. </p>
         <p>
-            As we can see in the famous Knowledge Discovery in Databases Pipeline preprocessing happens before we are applying further algorithms to generate knowledge out of our data. Preprocessing comprises <br> <br>
+            As we can see in the famous Knowledge Discovery in Databases Pipeline [2], preprocessing happens before we apply machine learning algorithms to generate knowledge from our data. Garcia et al. [3] comprise preprocessing as <br> <br>
             - Normalization: normalize or standardize your data <br><br>
             - Data Cleaning: detect outliers, delete duplicate data, remove/replace missing values <br> <br>
-            - Data Reduction: remove either some of your data points or dimensions <br><br>
-            - Transformation: change the format of your data to a format which is understood by machine learning algorithms <br><br>
-            - Segmentation: create meaningful blocks out of your data points <br><br>
-            The following sections are exploring those concepts together with some examples.
+            - Data Reduction: remove some of your data points or dimensions <br><br>
+            - Transformation: change the input to a featurization which is understood by machine learning algorithms <br><br>
+            The terminology may differ from author to author. The following sections explore the presented concepts together with some examples.
 
         </p>
     </div>
@@ -53,12 +52,11 @@
     <h1 class="topicCaption" id="topicNorm">Normalization</h1>
     <div class="paragraph">
         <p>
-            Normalization refers to changing the scale of your data ponts. This can be motivated in various ways: For example, imagine that you want to do a clustering task with the help of the k-means algorithm. If you have two dimension with different range values, e.g. one from 0-1 and one form 0-100, chances are high that our clustering task will only be performed on the dimension with a range scale from 0-100.
-            This example transfers to almost all machine learning algorithms. Thus you should always normalize or standardize your data.
+            Normalization refers to changing the scale of your data points. We can motivate Normalization in various ways: For example, imagine that you want to do a clustering task with the help of the \(  k \)-means algorithm. If you have two dimensions with different range values, e.g. one from \(  0-1 \) and one from \(  0-100 \), chances are high that our clustering task will only be performed on the dimension with a range scale from \(  0-100 \). This example transfers to almost all machine learning algorithms. Thus it would be best if you always normalize or standardize your data.
         </p>
 
         <p>
-            There is some confusion about the terminology of normalization and standarization. Normalization means that you transform your data to one predefined scale. On the contrary Standardization rescales the data to a mean of 0 and a standard deviation of 1. The following figure shows the difference.
+            There is some confusion about the terminology of normalization and Standardization. Normalization means that you transform your data to one predefined scale. On the contrary, Standardization rescales the data to a mean of \(  0 \) and a standard deviation of \(  1 \). The following interactive plot shows the difference.
         </p>
         <fieldset>
             <legend>Select one method:</legend>
@@ -94,7 +92,7 @@
 
         </svg>
         <p>
-            If one should apply normalization or standardization depends on the data and the algorithm one wants to use. Note that Normalization is sensitive to outliers - thus, one has to remove outliers before applying normalization. If you dont know which procedure to use to scale your data, use both and show which methods produces better results.
+            Whether to apply Normalization or Standardization depends on the data, and the algorithm one wants to use. Note that Normalization is sensitive to outliers - thus, one has to remove outliers before applying Normalization. If you do not know which procedure to use to scale your data, use both and show which method produces better results.
         </p>
     </div>
 
@@ -106,10 +104,9 @@
             - Data Deduplication: remove data points which appear twice in the data set <br> <br>
             - Missing Values: handle data points which have missing values for one or more feature <br> <br>
 
-            While data deduplication is an important task for preprocessing, we do not want to focus on that problem here because there is no better possibility than to scan the whole database for multiple appearances of data points. Thus we first want to focus on Outlier Detection.
-        </p>
+            While Data Deduplication is an essential task for preprocessing, we do not want to focus on that problem here because there is no better possibility than scanning the whole database for multiple data points. Thus we first want to focus on Outlier Detection.
         <p>
-            We can choose among a myriad approaches for outlier detection: There are statistical-based methods, distance-based methods and model-based methods. The amount of research should show the importance of Outlier Detection: Outliers distort the results of our machine learning algorithms because they make it harder for the algorithms to detect regularities and influence statistical measurements. For example, look at the following dataset: To the human eye, it is easy to detect that there are two clusters. But what do you think could happen if we choose to cluster our data with the help of the k-means algorithm.
+            The amount of research should show the importance of Outlier Detection: Outliers distort the results of our machine learning algorithms because they make it harder for the algorithms to detect regularities and influence statistical measurements. We can choose among various approaches for outlier detection: Statistical-based methods, distance-based methods and model-based methods. For example, look at the following dataset: To the human eye, it is easy to detect that there are two clusters. However, what do you think could happen if we cluster our data with the help of the \(  k \)-means algorithm?
         </p>
         <fieldset>
             <legend>Select one method:</legend>
@@ -120,11 +117,11 @@
             </div>
             <div>
                 <input type="radio" id="kmeansWith" name="kmeans" value="1">
-                <label for="kmeansWith">k-means with outlier</label>
+                <label for="kmeansWith">\(  k \)-means with outlier</label>
             </div>
             <div>
                 <input type="radio" id="kmeansWithout" name="kmeans" value="2">
-                <label for="kmeansWithout">k-means without outlier</label>
+                <label for="kmeansWithout">\(  k \)-means without outlier</label>
             </div>
         </fieldset>
         <svg class="svg2">
@@ -158,7 +155,7 @@
             Not all machine learning algorithms are sensitive to outliers. Can you guess which of the following algorithms are robust to outliers?
         </p>
         <div class="form-group">
-            k-Medians is ...
+            \(  k \)-Medians is ...
             <input id="kMed1" name='robust' type='checkbox' onchange="kMed(true)">
             <label for="kMed1">Robust</label>
             <input id="kMed2" name='robust' type='checkbox' onchange="kMed(false)">
@@ -209,7 +206,7 @@
         </p>
         <p>
             <br> <br>
-            Next, we want to quickly look at how we can handle missing values. In general, we have following opportunities for that:
+            Next, we want to look at how we can handle missing values. In general, we have the following opportunities for that:
         </p>
         <table>
             <tr>
@@ -249,8 +246,8 @@
 
     <h1 class="topicCaption" id="topicRed">Data Reduction</h1>
     <div class="paragraph">
-        <p>Data reduction is necessary for some algorithms to ease the computational cost. Most machine learning algorithms deal well with huge amounts of data because that makes it easy to find patterns. However, for some methods such as gradient descent, we can save some computational cost. Instead of looking at all data points, we only look at a sample of them. This procedure is then called stochastic gradient descent, which is computationally much cheaper and produces most often good results. But we can not only reduce the number of data points, but also the number of features. We then have to decide which feature to keep and which to disregard.</p>
-        <p>First we want to focus on data point reduction. Probably the easiest way to reduce the number of data points is to apply sampling strategies. Simple Random Sampling randomly chooses which data points we want to keep. This method is not biased but can exclude whole groups of data points, which then do not appear anymore in our dataset. We can overcome that problem by applying Systematic Random Sampling. There, we sort the data according to some feature and then select every k-th element. Thus we can be sure to include the whole range of values for at least one feature. Another method is called Stratified Random Sampling where we define homogenous groups and then we are sampling in those groups. However, it often happens that the final data set is then too heavily influenced by small groups. The last method is called Cluster Random Sampling. There we are assuming that there is little variance between the clusters, but huge variance within one cluster. Thus, we sample just in one cluster. The difference between Simple Random Sampling, Stratified Random Sampling and Cluster Random Sampling is shown in the following plot. In each case we want to sample 8 points.   </p>
+        <p>Data reduction is necessary for some algorithms to ease the computational cost. Most machine learning algorithms deal well with massive amounts of data, making finding patterns easy. However, we can save some computational cost for some methods, such as gradient descent. Instead of looking at all data points, we only look at a sample. This procedure, called stochastic gradient descent, is computationally much cheaper and often produces good results. Nevertheless, we can reduce not only the number of data points but also the number of features. We then have to decide which feature to keep and which to disregard.</p>
+        <p>First, we want to focus on data point reduction. The easiest way to reduce the number of data points is to apply sampling strategies. Simple Random Sampling randomly chooses which data points we want to keep. This method is not biased but can exclude whole groups of data points that do not appear anymore in our dataset. We can overcome that problem by applying Systematic Random Sampling. We sort the data according to some feature and select every \(  k \)-th element. Thus we can be sure to include the whole range of values for at least one feature. Another method is called Stratified Random Sampling, where we define homogenous groups and then we are sampling in those groups. However, it often happens that the final data set is then too heavily influenced by small groups. The last method is called Cluster Random Sampling. We are assuming a slight variance between the clusters but a considerable variance within one cluster. Thus, we sample just in one cluster. The difference between Simple Random Sampling, Stratified Random Sampling and Cluster Random Sampling is shown in the following plot. In each case, we want to sample 8 points.    </p>
 
 
         <fieldset>
@@ -316,11 +313,11 @@
             </svg>
         </svg>
 
-        <p>Next we will focus on dimensionality reduction. Many distance-based machine learning algorithms suffer from the Curse of Dimensionality. Furthermore we do not want to have strongly correlated features. For example, imagine that we have two features in a k-means algorithm that have the exxact same values. We then do not only have a higher computational cost, but those features (which should only be one feature) are weighted twice in the distance calculation. Thus we will get worse results. However dimensionality reduction is no trivial task especially if we want to do non-linear dimensionality reduction. Non-linear dimensionality reduction has the advantage that it can change non-linear separable data to linear separable data where we can use well-known and fast linear algorithms. In the following, we want to retrace one non-linear dimensionality reduction in detail.</p>
+        <p>Next, we will focus on dimensionality reduction. Many distance-based machine learning algorithms suffer from the Curse of Dimensionality. Furthermore, we do not want to have strongly correlated features. For example, imagine that we have two features in a \(  k \)-means algorithm that have the same values. We then do not only have a higher computational cost, but those features (which should only be one feature) are weighted twice in the distance calculation. Thus we will get worse results. However, dimensionality reduction is no trivial task, especially if we want to apply non-linear dimensionality reduction. Non-linear dimensionality reduction has the advantage that it can change non-linear separable data to linearly separable data, where we can use well-known and fast linear algorithms. We want to retrace one non-linear dimensionality reduction in detail in the following.</p>
 
 
 
-        <p>We will look at a famous data set called Swiss Roll. The data looks like that</p>
+        <p>We will look at a famous data set called Swiss Roll [4]. The data looks like that</p>
 
     </div>
     <figure class="swissRoll">
@@ -330,20 +327,20 @@
     </figure>
     <div class="paragraph">
         <p>
-            Our goal is now to unroll the data. We will apply three steps:
+            Our goal is now to unroll the data. We will apply the Isomap [5] algorithm consisting of three steps:
             <br> <br>
-            1. We build a k-nearest-neighbour graph <br> <br>
-            2. We calculate the distance matrix with the help of Dijkstras Algorithm <br> <br>
-            3. We apply multidimensional scaling to our distance matrix  <br> <br>
+            1. We build a \(  k \)-nearest-neighbour graph. <br> <br>
+            2. We calculate the distance matrix with the help of Dijkstra's [6] Algorithm. <br> <br>
+            3. We apply multidimensional scaling to our distance matrix.  <br> <br>
 
-            The k-nearest-neighbour graph can be calculated easily. For each data point we scan the database. calculate the euclidean distance and then save the k-th nearest neighbour. The nodes of our graph will be the nodes and there will be an edge between two nodes if they are k-nearest neighbours. However, you may notice a drawback here. It can be possible that the graph is not connected. If that is the case our k was too low.
+            The \(  k \)-nearest-neighbour graph can be calculated easily. For each data point, we scan the database, calculate the euclidean distance and then save the \(  k \)-th nearest neighbour. The nodes of our graph will be the nodes, and there will be an edge between two nodes if they are \(  k \)-nearest neighbours. However, you may notice a drawback here. It can be possible that the graph is not connected. If that is the case, our k was too low.
         </p>
         <p>
-            Next we will apply Dijkstras Algorithm to calculate the shortest path distances for each node in the graph. That means we calculate a distance matrix \( E(x_1,x_2,...x_N) =  \sqrt{\sum_{m,n}  d_{mn} - ||x_m - x_n|| } \) between all points. Note that we not simply calculate the euclidean distance as we have done for the k-nearest algorithm, but the path distances in the graph. The drawback of this method is that Dijkstra is in n log(n) meaning that we can not use this algorithm for too large data sets.
+            Next, we will apply Dijkstra's Algorithm to calculate the shortest path distances for each node in the graph. That means we calculate a distance matrix \( E(x_1,x_2,...x_N) =  \sqrt{\sum_{m,n}  d_{mn} - ||x_m - x_n|| } \) between all points. Note that we do not simply calculate the euclidean distance as we have done for the \(  k \)-nearest algorithm, but the path distances in the graph. The drawback of this method is that Dijkstra is in \( \mathcal{O}(n*log(n)) \) , meaning that we can not use this algorithm for too large data sets.
 
         </p>
         <p>
-            This distance matrix will now be used for multidimensional scaling. This machine learning algorithm tries to minimize the following loss: \( E(x_1,x_2,...x_n) =  \sqrt{\sum_{a,b}^n euclid_d(x_{a},x_{b}) - dijkstra(x_{a},x_{b})} \) which seems confusing in the beginning. So let's make sure we understand the notation. The input to our loss are the data points \( x_1,x_2,...x_n \). For each pair of data points we then try to preserve the distance calculated by Dijkstra in our nearest neighbour graph and the euclidean distance \( euclid_d(x_{a},x_{b}) \) in a lower dimensional space with (\ d \) dimensions. In our example for the swiss roll, our original data set is 3-dimensional and we want to unroll the data to a 2-dimensional representation. Intuitively, the loss tries that nearest neighbours in the original data set are still nearest neighbours in the low dimensional space. If we apply this loss with appropriate parameters, we get the following representaiton:
+            This distance matrix will now be used for multidimensional scaling. This machine learning algorithm tries to minimize the following loss: \( E(x_1,x_2,...x_n) =  \sqrt{\sum_{a,b}^n euclid_d(x_{a},x_{b}) - Dijkstra(x_{a},x_{b})} \) which seems confusing in the beginning. So let us make sure we understand the notation. The input to our loss are the data points \( x_1,x_2,...x_n \). For each pair of data points, we then try to preserve the distance calculated by Dijkstra in our nearest neighbour graph and the euclidean distance \( euclid_d(x_{a},x_{b}) \) in a lower dimensional space with \( d \) dimensions. In our example for the swiss roll, our original data set is \(  3 \)-dimensional, and we want to unroll the data to a \(  2 \)-dimensional representation. Intuitively, the loss tries that the nearest neighbours in the original data set are still nearest neighbours in the low dimensional space. If we apply this loss with appropriate parameters, we get the following representation:
         </p>
     </div>
     <figure class="swissRoll">
@@ -353,25 +350,123 @@
     </figure>
     <div class="paragraph">
         <p>
-            In this case we have set k to 6, that means each data point is connected to 6 nearest neighbour in our graph. Unfortunately, we dont know that number in beforehand. This problem becomes even worse if we realize that k should also not be chosen too high. Otherwise the distances calculated by Dijkstra approximate the original euclidean distances which leads to a collapse of our loss function in the multidimensional scaling. An example what happens if k is choosen too high is shown in the following.
+            In this case, we have set k to six, which means each data point is connected to the six nearest neighbours in our graph. Unfortunately, we do not know that number beforehand. This problem worsens if we realize that \(  k \) should not be chosen too high. Otherwise, the distances calculated by Dijkstra approximate the original euclidean distances, leading to a collapse of our loss function in the multidimensional scaling. An example of what happens if \(  k \) is chosen too high is shown in the following.
         </p>
     </div>
     <figure class="swissRoll">
         <img src="negative.png"
              alt="Transformed Swiss Roll data set with 1000 points">
-        <figcaption>A negative example what can go wrong when applying Isomap. k is set too high which leads to a bad behaviour of our loss function.</figcaption>
+        <figcaption>A negative example what can go wrong when applying Isomap. \(  k \) is set too high which leads to a bad behaviour of our loss function.</figcaption>
     </figure>
 
     <div class="paragraph">
         <p>
-            An explanation for that can be found easily. What happened is that some of the yellow nodes were direct neighbours with some blue points. Thus the distances calculated by Dijkstra between the yellow and the blue points is low. The multidimensional scaling tries to preserve this embedding. Thats why the yellow points are still close to the blue points and we have failed to fully unroll the data set.
+            An explanation for that can be found easily. What happened is that some of the yellow nodes were direct neighbours with some blue points. Thus the distances calculated by Dijkstra between the yellow and the blue points are low. The multidimensional scaling tries to preserve this embedding. That is why the yellow points are still close to the blue points, and we have failed to unroll the data set.
         </p>
     </div>
     <h1 class="topicCaption" id="topicTransform">Transformation</h1>
     <div class="paragraph">
         <p>
+            Transformation means that we want to transform our data in a featurization our machine learning algorithm can understand and is helpful for it. Here we do not want to discuss technical aspects such as converting data types. Instead, we are focusing on how to come up with good features. First, we must ask ourselves what we want from features: They should allow our machine learning algorithm to learn the general trend. Our machine learning algorithm should still predict the correct output if we see new data. Thus the featurization should be complete, meaning that our machine learning algorithm has enough training data to learn the general trend. This is a nearly impossible task, but we can apply some tricks.
+        </p>
+        <p>
+            One approach which is often used is data augmentation. Data augmentation describes that we generate more data with the help of our existing training data. This technique is often used in computer vision. For example, if we think about images, there are several augmentations we could apply. For example, we could mirror the data vertically and horizontally. Then we already get four images out of one. An alternative to that is to build prior knowledge into our features explicitly. For example, think about physical systems consisting of protons and electrons. For a moment, we will neglect quantum mechanical effects and consider protons and electrons as particles. We want to learn a system's potential energy with our machine learning algorithm. It does not matter if we translate, rotate or permutate the system for the potential. The potential will always have the same level. That means the energy is invariant to rotation, translation and permutation. If we allow our features to know those invariances, meaning that the features do not change if the data points are rotated, translated or permutated, then our machine learning algorithm does not have to learn those invariances. This is much faster - indeed, for now, it is impossible to predict atomic potentials without a featurization that respects those invariances.
+        </p>
+        <p>
+            Because this blog is about machine learning, we can not leave out learning featurization with the help of machine learning. This leads us to the idea of Deep Neural Networks. The idea is that we learn a more abstract representation of our training data with each layer. In reality, we can not say that one particular layer of a deep neural network learns one abstraction that is understandable to humans. However, some techniques explain the outcomes of machine learning algorithms even if they are black box models. However, that is not the only problem of deep neural networks. In the following figure, we can see the increase of layers in the years up to 2015 for the winning network in the  ILSVRC recognition challenge.
         </p>
     </div>
+    <figure class="swissRoll">
+        <img src="parameters.png"
+             alt="Transformed Swiss Roll data set with 1000 points">
+        <figcaption>Figure reprinted from [7]. Number of layers of the winning networks in the ILSVRC recognition challenge.</figcaption>
+    </figure>
+    <div class="paragraph">
+        <p>
+            This increase in layers leads to an increase in parameters. For example, Google Net [8] has close to seven million parameters. This allows for excellent accuracy but introduces many problems: Hyperparameter optimization is complex, training the network is time and energy consuming, the network is slow, and we need to avoid overfitting. For some applications, this works great if we have the resources. Nevertheless, we can not just use a deep neural network for every machine learning task we have to do because of the already stated disadvantages. We still have to design some of our features by ourselves.
+        </p>
+    </div>
+    <h1 class="topicCaption" id="topicSummary">Summary</h1>
+    <div class="paragraph">
+        <p>
+            This blog gives a high-level overview of preprocessing for machine learning techniques. We have seen the difference between Normalization and Standardization, why data cleaning is important, how we can apply sampling and dimensionality reduction to reduce the computational cost, and we have seen some options to produce a good featurization. This blog ends with a short quiz to test what you have learned.
+        </p>
+
+
+        <div class="form-group">
+            Normalization is sensitive to outliers.
+            <input id="quizNorm1" name='quizEnd' type='checkbox' onchange="quizNorm(true)">
+            <label for="quizNorm1">True</label>
+            <input id="quizNorm2" name='quizEnd' type='checkbox' onchange="quizNorm(false)">
+            <label for="quizNorm2">False</label>
+        </div>
+        <p id="sol6">
+
+        </p>
+        <div class="form-group">
+            Standardization scales the data points to a predefined range of values.
+            <input id="quizStand1" name='quizEnd' type='checkbox' onchange="quizStand(false)">
+            <label for="quizStand1">True</label>
+            <input id="quizStand2" name='quizEnd' type='checkbox' onchange="quizStand(true)">
+            <label for="quizStand2">False</label>
+        </div>
+        <p id="sol7">
+
+        </p>
+        <div class="form-group">
+            Outlier Detection is necessary for all machine learning algorithms.
+            <input id="quizOutl1" name='quizEnd' type='checkbox' onchange="quizOutl(false)">
+            <label for="quizOutl1">True</label>
+            <input id="quizOutl2" name='quizEnd' type='checkbox' onchange="quizOutl(true)">
+            <label for="quizOutl2">False</label>
+        </div>
+        <p id="sol8">
+
+        </p>
+        <div class="form-group">
+            Using the mean of a feature to fill in missing values is not the most probably approximation.
+            <input id="quizMean1" name='quizEnd' type='checkbox' onchange="quizMean(true)">
+            <label for="quizMean1">True</label>
+            <input id="quizMean2" name='quizEnd' type='checkbox' onchange="quizMean(false)">
+            <label for="quizMean2">False</label>
+        </div>
+        <p id="sol9">
+
+        </p>
+        <div class="form-group">
+            Cluster random sampling should be applied if the clusters are heterogenous.
+            <input id="quizSampling1" name='quizEnd' type='checkbox' onchange="quizSampling(false)">
+            <label for="quizSampling1">True</label>
+            <input id="quizSampling2" name='quizEnd' type='checkbox' onchange="quizSampling(true)">
+            <label for="quizSampling2">False</label>
+        </div>
+        <p id="sol10">
+
+        </p>
+        <div class="form-group">
+            Data augmentation describes the task of generating new inputs.
+            <input id="quizAugmen1" name='quizEnd' type='checkbox' onchange="quizAugmen(true)">
+            <label for="quizAugmen1">True</label>
+            <input id="quizAugmen2" name='quizEnd' type='checkbox' onchange="quizAugmen(false)">
+            <label for="quizAugmen2">False</label>
+        </div>
+        <p id="sol11">
+
+        </p>
+    </div>
+    <h1 class="topicCaption" id="references">References</h1>
+    <div class="paragraph">
+        <a href="https://infovis-wiki.net/wiki/Knowledge_Discovery_in_Databases_%28KDD%29">[1] https://infovis-wiki.net/wiki/Knowledge_Discovery_in_Databases_%28KDD%29</a>
+        <p> [2] M. De Martino, A. Bertone, R. Albertoni, H. Hauska, U. Demsar, M. Dunkars. Technical Report of Data Mining, INVISIP IST-2000-29640, Information Visualisation for Site Planning, WP No2: Technology Analysis, D2.2,2002</p>
+        <p> [3] S. García, J. Luengo, F. Herrera. Data Preprocessing in Data Mining, ISBN: 331910246X, Volume 45, 2015</p>
+        <a href="https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_swiss_roll.html">[4] https://scikit-learn.org/stable/modules/generated/sklearn.datasets.make_swiss_roll.html </a>
+        <p> [5] J. B. Tenenbaum, V. de Silva, J. C. Langford, A Global Geometric Framework for Nonlinear Dimensionality Reduction, Science 290, 2000, 2319–2323</p>
+        <p> [6] E. W. Dijkstra, A note on two problems in connexion with graphs, Numerische Mathematik, 1: 269–271, 1959, doi:10.1007/BF01386390</p>
+        <a href="https://slidetodoc.com/lecture-5-part-b-classic-cnn-architectures-dana/">[7] https://slidetodoc.com/lecture-5-part-b-classic-cnn-architectures-dana/ </a>
+        <p> [8] C. Szegedy et al., "Going deeper with convolutions," 2015 IEEE Conference on Computer Vision and Pattern Recognition (CVPR), 2015, pp. 1-9, doi: 10.1109/CVPR.2015.7298594.</p>
+
+    </div>
+
     <script src="script.js"></script>
 </body>
 
